@@ -1,5 +1,9 @@
 # Second-Look Prompting
 
+[![Website](https://img.shields.io/badge/Website-second--look--vlm.com-2f62c8?logo=googlechrome&logoColor=white)](https://second-look-vlm.com)
+![arXiv](https://img.shields.io/badge/arXiv-coming%20soon-b31b1b?logo=arxiv&logoColor=white)
+[![Video](https://img.shields.io/badge/Video-explainer%20%282%3A35%29-e5484d)](assets/slp-explainer.mp4)
+
 Code for **Replay Before You Reply: Second-Look Prompting for Unified Multimodal Encoding**.
 
 Yicheng Zhang\*, Xun Zhang\*, Jingyuan Ma\*, Tianyu Yu†, Yuan Yao† (Tsinghua University)

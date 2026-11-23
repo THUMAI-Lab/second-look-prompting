@@ -5,7 +5,12 @@ Code for **Replay Before You Reply: Second-Look Prompting for Unified Multimodal
 Yicheng Zhang\*, Xun Zhang\*, Jingyuan Ma\*, Tianyu Yu†, Yuan Yao† (Tsinghua University)
 \* Equal contribution. † Corresponding authors.
 
-![Second-Look Prompting](assets/slp_teaser.png)
+![Causal attention across input presentations](assets/slp_method.png)
+
+*Causal attention across input presentations: rows are querying tokens and columns are keys. Under
+the standard prompt (a) and plain image repetition (b), visual tokens cannot attend to the question.
+SLP (d) repeats the image–question pair, so the second image is encoded under the question (1) and
+the second question reads the added visual tokens as a prefill scratchpad (2).*
 
 Under causal attention, a token in a Vision-Language Model can attend only to what precedes it, so
 whichever modality comes first is encoded without seeing the rest of the input. Second-Look

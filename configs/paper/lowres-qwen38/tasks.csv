@@ -1,0 +1,11 @@
+model,policy,mode,transform,dataset
+qwen38_27b,default,image_text_image_text,v2_tokens_half,MathVision
+qwen38_27b,default,image_text_image_text,v2_tokens_quarter,MathVision
+qwen38_27b,default,image_text_image_text,v2_tokens_half,BabyVision
+qwen38_27b,default,image_text_image_text,v2_tokens_quarter,BabyVision
+qwen38_27b,default,image_text_image_text,v2_tokens_half,RealWorldQA
+qwen38_27b,default,image_text_image_text,v2_tokens_quarter,RealWorldQA
+qwen38_27b,default,image_text_image_text,v2_tokens_half,ERQA_SINGLE
+qwen38_27b,default,image_text_image_text,v2_tokens_quarter,ERQA_SINGLE
+qwen38_27b,default,image_text_image_text,v2_tokens_half,CharXiv_reasoning_val
+qwen38_27b,default,image_text_image_text,v2_tokens_quarter,CharXiv_reasoning_val

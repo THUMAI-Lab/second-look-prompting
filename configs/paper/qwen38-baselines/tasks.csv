@@ -1,0 +1,11 @@
+model,policy,mode,transform,dataset
+qwen38_27b,default,image_text,baseline,MathVision
+qwen38_27b,default,image_text_image_text,baseline,MathVision
+qwen38_27b,default,image_text,baseline,BabyVision
+qwen38_27b,default,image_text_image_text,baseline,BabyVision
+qwen38_27b,default,image_text,baseline,RealWorldQA
+qwen38_27b,default,image_text_image_text,baseline,RealWorldQA
+qwen38_27b,default,image_text,baseline,ERQA_SINGLE
+qwen38_27b,default,image_text_image_text,baseline,ERQA_SINGLE
+qwen38_27b,default,image_text,baseline,CharXiv_reasoning_val
+qwen38_27b,default,image_text_image_text,baseline,CharXiv_reasoning_val

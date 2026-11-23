@@ -1,0 +1,51 @@
+env_profiles:
+  eval031:
+    python: '{conda_root}/envs/vlmeval031/bin/python'
+    pythonpath:
+    - '{repo_root}'
+    base_env:
+      LMUData: '{lmu_data}'
+      HF_HUB_OFFLINE: '1'
+      TRANSFORMERS_OFFLINE: '1'
+      OMP_NUM_THREADS: '1'
+      FORCE_LOCAL: 'True'
+      OLD_VERSION: 'False'
+      PYTHONNOUSERSITE: '1'
+      VLMEVAL_API_MINIMAL_IMPORT: '1'
+      VLMEVAL_VLM_MINIMAL_IMPORT: '1'
+      VLMEVAL_LAZY_INIT: '1'
+      VLMEVAL_USE_QWEN_MINIMAL_CONFIG: '1'
+models:
+  q38_ef_low:
+    display_name: Qwen3.8-27B think low
+    registry_name: Qwen3.8-27B-Think-Replay
+    env_profile: eval031
+    model_path: '{model_root}/Qwen3.8-27B'
+    runtime: &id001
+      gpus_per_job: 2
+      infer_batch_size: 128
+      max_num_seqs: 128
+      tp_size: 2
+      max_model_len: 40960
+      estimated_dataset_cost: 1.0
+    task_env:
+      QWEN35_REASONING_EFFORT: low
+      MODEL_PATH_QWEN38_27B: '{model_root}/Qwen3.8-27B'
+  q38_ef_med:
+    display_name: Qwen3.8-27B think medium
+    registry_name: Qwen3.8-27B-Think-Replay
+    env_profile: eval031
+    model_path: '{model_root}/Qwen3.8-27B'
+    runtime: *id001
+    task_env:
+      QWEN35_REASONING_EFFORT: medium
+      MODEL_PATH_QWEN38_27B: '{model_root}/Qwen3.8-27B'
+  q38_ef_xh:
+    display_name: Qwen3.8-27B think xhigh
+    registry_name: Qwen3.8-27B-Think-Replay
+    env_profile: eval031
+    model_path: '{model_root}/Qwen3.8-27B'
+    runtime: *id001
+    task_env:
+      QWEN35_REASONING_EFFORT: xhigh
+      MODEL_PATH_QWEN38_27B: '{model_root}/Qwen3.8-27B'

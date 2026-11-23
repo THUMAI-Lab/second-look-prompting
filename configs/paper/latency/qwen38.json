@@ -1,0 +1,338 @@
+{
+  "repo_root": "@REPO@",
+  "name": "latency-lowres-node1",
+  "results_root": "@OUTPUT@",
+  "datasets": [
+    "MathVision",
+    "BabyVision",
+    "RealWorldQA",
+    "ERQA_SINGLE",
+    "CharXiv_reasoning_val"
+  ],
+  "replay_modes": [
+    "image_text",
+    "image_text_image_text"
+  ],
+  "cot_modes": [
+    "default"
+  ],
+  "sampling_fraction": 0.1,
+  "batch_size": 1,
+  "strict_timing": true,
+  "separate_warmup": true,
+  "ordered_allowlists": true,
+  "initial_image_transform": "v2_tokens_half",
+  "recipes": [
+    {
+      "name": "VT",
+      "replay_mode": "image_text",
+      "image_transform": "baseline"
+    },
+    {
+      "name": "SLP",
+      "replay_mode": "image_text_image_text",
+      "image_transform": "baseline"
+    },
+    {
+      "name": "SLP-half",
+      "replay_mode": "image_text_image_text",
+      "image_transform": "v2_tokens_half"
+    },
+    {
+      "name": "SLP-quarter",
+      "replay_mode": "image_text_image_text",
+      "image_transform": "v2_tokens_quarter"
+    }
+  ],
+  "parallel_models": true,
+  "models": [
+    {
+      "name": "node1-lane0",
+      "path": "@MODEL@",
+      "registry": "Qwen3.8-27B-Replay",
+      "framework": "qwen",
+      "gpu": "0,1",
+      "tp": 2,
+      "python": "@PYTHON@",
+      "overrides": {
+        "datasets": [
+          "MathVision",
+          "BabyVision",
+          "RealWorldQA",
+          "ERQA_SINGLE",
+          "CharXiv_reasoning_val"
+        ],
+        "dataset_index_allowlists": {
+          "MathVision": "{repo_root}/configs/paper/latency/allowlists/qwen38-lane0-MathVision.json",
+          "BabyVision": "{repo_root}/configs/paper/latency/allowlists/qwen38-lane0-BabyVision.json",
+          "RealWorldQA": "{repo_root}/configs/paper/latency/allowlists/qwen38-lane0-RealWorldQA.json",
+          "ERQA_SINGLE": "{repo_root}/configs/paper/latency/allowlists/qwen38-lane0-ERQA_SINGLE.json",
+          "CharXiv_reasoning_val": "{repo_root}/configs/paper/latency/allowlists/qwen38-lane0-CharXiv_reasoning_val.json"
+        },
+        "environment": {
+          "VLMEVAL_LAZY_INIT": "1",
+          "VLMEVAL_VLM_MINIMAL_IMPORT": "1",
+          "VLMEVAL_API_MINIMAL_IMPORT": "1",
+          "VLMEVAL_USE_QWEN_MINIMAL_CONFIG": "1",
+          "HF_HUB_OFFLINE": "1",
+          "TRANSFORMERS_OFFLINE": "1",
+          "OMP_NUM_THREADS": "4",
+          "TOKENIZERS_PARALLELISM": "false",
+          "FORCE_LOCAL": "True",
+          "OLD_VERSION": "False",
+          "PYTHONNOUSERSITE": "1",
+          "LMUData": "@LMUDATA@",
+          "HF_HOME": "/path/to/temporary/scratch/prompt-replay/hf-cache",
+          "REPLAY_MODE": "image_text_image_text",
+          "REPLAY_PROMPT_TEMPLATE_NAME": "identity",
+          "REPLAY_IMAGE_TRANSFORM_TARGET_POSITION": "2",
+          "QWEN35_NONTHINK_SAMPLING": "greedy",
+          "TORCHINDUCTOR_CACHE_DIR": "@CACHE@/lane0/torchinductor_cache_dir",
+          "TRITON_CACHE_DIR": "@CACHE@/lane0/triton_cache_dir",
+          "VLLM_CACHE_ROOT": "@CACHE@/lane0/vllm_cache_root"
+        },
+        "worker_id": "node1-lane0",
+        "max_new_tokens": 32768,
+        "vllm": {
+          "max_num_seqs": 16,
+          "max_model_len": 40960,
+          "gpu_memory_utilization": 0.9
+        },
+        "expected_sampling": {
+          "temperature": 0.0,
+          "repetition_penalty": 1.0,
+          "max_tokens": 32768,
+          "presence_penalty": 1.5
+        },
+        "startup_barrier": {
+          "path": "@OUTPUT@/ready",
+          "participants": [
+            "node1-lane0",
+            "node1-lane1",
+            "node1-lane2",
+            "node1-lane3"
+          ],
+          "timeout_seconds": 1800
+        }
+      }
+    },
+    {
+      "name": "node1-lane1",
+      "path": "@MODEL@",
+      "registry": "Qwen3.8-27B-Replay",
+      "framework": "qwen",
+      "gpu": "2,3",
+      "tp": 2,
+      "python": "@PYTHON@",
+      "overrides": {
+        "datasets": [
+          "MathVision",
+          "BabyVision",
+          "RealWorldQA",
+          "ERQA_SINGLE",
+          "CharXiv_reasoning_val"
+        ],
+        "dataset_index_allowlists": {
+          "MathVision": "{repo_root}/configs/paper/latency/allowlists/qwen38-lane1-MathVision.json",
+          "BabyVision": "{repo_root}/configs/paper/latency/allowlists/qwen38-lane1-BabyVision.json",
+          "RealWorldQA": "{repo_root}/configs/paper/latency/allowlists/qwen38-lane1-RealWorldQA.json",
+          "ERQA_SINGLE": "{repo_root}/configs/paper/latency/allowlists/qwen38-lane1-ERQA_SINGLE.json",
+          "CharXiv_reasoning_val": "{repo_root}/configs/paper/latency/allowlists/qwen38-lane1-CharXiv_reasoning_val.json"
+        },
+        "environment": {
+          "VLMEVAL_LAZY_INIT": "1",
+          "VLMEVAL_VLM_MINIMAL_IMPORT": "1",
+          "VLMEVAL_API_MINIMAL_IMPORT": "1",
+          "VLMEVAL_USE_QWEN_MINIMAL_CONFIG": "1",
+          "HF_HUB_OFFLINE": "1",
+          "TRANSFORMERS_OFFLINE": "1",
+          "OMP_NUM_THREADS": "4",
+          "TOKENIZERS_PARALLELISM": "false",
+          "FORCE_LOCAL": "True",
+          "OLD_VERSION": "False",
+          "PYTHONNOUSERSITE": "1",
+          "LMUData": "@LMUDATA@",
+          "HF_HOME": "/path/to/temporary/scratch/prompt-replay/hf-cache",
+          "REPLAY_MODE": "image_text_image_text",
+          "REPLAY_PROMPT_TEMPLATE_NAME": "identity",
+          "REPLAY_IMAGE_TRANSFORM_TARGET_POSITION": "2",
+          "QWEN35_NONTHINK_SAMPLING": "greedy",
+          "TORCHINDUCTOR_CACHE_DIR": "@CACHE@/lane1/torchinductor_cache_dir",
+          "TRITON_CACHE_DIR": "@CACHE@/lane1/triton_cache_dir",
+          "VLLM_CACHE_ROOT": "@CACHE@/lane1/vllm_cache_root"
+        },
+        "worker_id": "node1-lane1",
+        "max_new_tokens": 32768,
+        "vllm": {
+          "max_num_seqs": 16,
+          "max_model_len": 40960,
+          "gpu_memory_utilization": 0.9
+        },
+        "expected_sampling": {
+          "temperature": 0.0,
+          "repetition_penalty": 1.0,
+          "max_tokens": 32768,
+          "presence_penalty": 1.5
+        },
+        "startup_barrier": {
+          "path": "@OUTPUT@/ready",
+          "participants": [
+            "node1-lane0",
+            "node1-lane1",
+            "node1-lane2",
+            "node1-lane3"
+          ],
+          "timeout_seconds": 1800
+        }
+      }
+    },
+    {
+      "name": "node1-lane2",
+      "path": "@MODEL@",
+      "registry": "Qwen3.8-27B-Replay",
+      "framework": "qwen",
+      "gpu": "4,5",
+      "tp": 2,
+      "python": "@PYTHON@",
+      "overrides": {
+        "datasets": [
+          "MathVision",
+          "BabyVision",
+          "RealWorldQA",
+          "ERQA_SINGLE",
+          "CharXiv_reasoning_val"
+        ],
+        "dataset_index_allowlists": {
+          "MathVision": "{repo_root}/configs/paper/latency/allowlists/qwen38-lane2-MathVision.json",
+          "BabyVision": "{repo_root}/configs/paper/latency/allowlists/qwen38-lane2-BabyVision.json",
+          "RealWorldQA": "{repo_root}/configs/paper/latency/allowlists/qwen38-lane2-RealWorldQA.json",
+          "ERQA_SINGLE": "{repo_root}/configs/paper/latency/allowlists/qwen38-lane2-ERQA_SINGLE.json",
+          "CharXiv_reasoning_val": "{repo_root}/configs/paper/latency/allowlists/qwen38-lane2-CharXiv_reasoning_val.json"
+        },
+        "environment": {
+          "VLMEVAL_LAZY_INIT": "1",
+          "VLMEVAL_VLM_MINIMAL_IMPORT": "1",
+          "VLMEVAL_API_MINIMAL_IMPORT": "1",
+          "VLMEVAL_USE_QWEN_MINIMAL_CONFIG": "1",
+          "HF_HUB_OFFLINE": "1",
+          "TRANSFORMERS_OFFLINE": "1",
+          "OMP_NUM_THREADS": "4",
+          "TOKENIZERS_PARALLELISM": "false",
+          "FORCE_LOCAL": "True",
+          "OLD_VERSION": "False",
+          "PYTHONNOUSERSITE": "1",
+          "LMUData": "@LMUDATA@",
+          "HF_HOME": "/path/to/temporary/scratch/prompt-replay/hf-cache",
+          "REPLAY_MODE": "image_text_image_text",
+          "REPLAY_PROMPT_TEMPLATE_NAME": "identity",
+          "REPLAY_IMAGE_TRANSFORM_TARGET_POSITION": "2",
+          "QWEN35_NONTHINK_SAMPLING": "greedy",
+          "TORCHINDUCTOR_CACHE_DIR": "@CACHE@/lane2/torchinductor_cache_dir",
+          "TRITON_CACHE_DIR": "@CACHE@/lane2/triton_cache_dir",
+          "VLLM_CACHE_ROOT": "@CACHE@/lane2/vllm_cache_root"
+        },
+        "worker_id": "node1-lane2",
+        "max_new_tokens": 32768,
+        "vllm": {
+          "max_num_seqs": 16,
+          "max_model_len": 40960,
+          "gpu_memory_utilization": 0.9
+        },
+        "expected_sampling": {
+          "temperature": 0.0,
+          "repetition_penalty": 1.0,
+          "max_tokens": 32768,
+          "presence_penalty": 1.5
+        },
+        "startup_barrier": {
+          "path": "@OUTPUT@/ready",
+          "participants": [
+            "node1-lane0",
+            "node1-lane1",
+            "node1-lane2",
+            "node1-lane3"
+          ],
+          "timeout_seconds": 1800
+        }
+      }
+    },
+    {
+      "name": "node1-lane3",
+      "path": "@MODEL@",
+      "registry": "Qwen3.8-27B-Replay",
+      "framework": "qwen",
+      "gpu": "6,7",
+      "tp": 2,
+      "python": "@PYTHON@",
+      "overrides": {
+        "datasets": [
+          "MathVision",
+          "BabyVision",
+          "RealWorldQA",
+          "ERQA_SINGLE",
+          "CharXiv_reasoning_val"
+        ],
+        "dataset_index_allowlists": {
+          "MathVision": "{repo_root}/configs/paper/latency/allowlists/qwen38-lane3-MathVision.json",
+          "BabyVision": "{repo_root}/configs/paper/latency/allowlists/qwen38-lane3-BabyVision.json",
+          "RealWorldQA": "{repo_root}/configs/paper/latency/allowlists/qwen38-lane3-RealWorldQA.json",
+          "ERQA_SINGLE": "{repo_root}/configs/paper/latency/allowlists/qwen38-lane3-ERQA_SINGLE.json",
+          "CharXiv_reasoning_val": "{repo_root}/configs/paper/latency/allowlists/qwen38-lane3-CharXiv_reasoning_val.json"
+        },
+        "environment": {
+          "VLMEVAL_LAZY_INIT": "1",
+          "VLMEVAL_VLM_MINIMAL_IMPORT": "1",
+          "VLMEVAL_API_MINIMAL_IMPORT": "1",
+          "VLMEVAL_USE_QWEN_MINIMAL_CONFIG": "1",
+          "HF_HUB_OFFLINE": "1",
+          "TRANSFORMERS_OFFLINE": "1",
+          "OMP_NUM_THREADS": "4",
+          "TOKENIZERS_PARALLELISM": "false",
+          "FORCE_LOCAL": "True",
+          "OLD_VERSION": "False",
+          "PYTHONNOUSERSITE": "1",
+          "LMUData": "@LMUDATA@",
+          "HF_HOME": "/path/to/temporary/scratch/prompt-replay/hf-cache",
+          "REPLAY_MODE": "image_text_image_text",
+          "REPLAY_PROMPT_TEMPLATE_NAME": "identity",
+          "REPLAY_IMAGE_TRANSFORM_TARGET_POSITION": "2",
+          "QWEN35_NONTHINK_SAMPLING": "greedy",
+          "TORCHINDUCTOR_CACHE_DIR": "@CACHE@/lane3/torchinductor_cache_dir",
+          "TRITON_CACHE_DIR": "@CACHE@/lane3/triton_cache_dir",
+          "VLLM_CACHE_ROOT": "@CACHE@/lane3/vllm_cache_root"
+        },
+        "worker_id": "node1-lane3",
+        "max_new_tokens": 32768,
+        "vllm": {
+          "max_num_seqs": 16,
+          "max_model_len": 40960,
+          "gpu_memory_utilization": 0.9
+        },
+        "expected_sampling": {
+          "temperature": 0.0,
+          "repetition_penalty": 1.0,
+          "max_tokens": 32768,
+          "presence_penalty": 1.5
+        },
+        "startup_barrier": {
+          "path": "@OUTPUT@/ready",
+          "participants": [
+            "node1-lane0",
+            "node1-lane1",
+            "node1-lane2",
+            "node1-lane3"
+          ],
+          "timeout_seconds": 1800
+        }
+      }
+    }
+  ],
+  "replay": {
+    "replay_times": 1,
+    "template_on_last_replay_text": 1,
+    "image_copy_mode": "reuse_path",
+    "limit_mm_per_prompt": 2,
+    "safe_fallback": 0,
+    "safe_truncate_chars": 6000
+  }
+}

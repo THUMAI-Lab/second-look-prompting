@@ -1,0 +1,62 @@
+env_profiles:
+  qwen_replay_vlmeval:
+    python: '{conda_root}/envs/vlmeval031/bin/python'
+    pythonpath:
+    - '{repo_root}'
+    base_env:
+      LMUData: '{lmu_data}'
+      OMP_NUM_THREADS: '1'
+      FORCE_LOCAL: 'True'
+      OLD_VERSION: 'False'
+      PYTHONNOUSERSITE: '1'
+      VLMEVAL_API_MINIMAL_IMPORT: '1'
+      VLMEVAL_VLM_MINIMAL_IMPORT: '1'
+      VLMEVAL_LAZY_INIT: '1'
+      VLMEVAL_USE_QWEN_MINIMAL_CONFIG: '1'
+      QWEN35_NONTHINK_SAMPLING: greedy
+  gemma4_replay_vlmeval:
+    python: '{conda_root}/envs/vlmeval031/bin/python'
+    pythonpath:
+    - '{repo_root}'
+    base_env:
+      LMUData: '{lmu_data}'
+      OMP_NUM_THREADS: '1'
+      FORCE_LOCAL: 'True'
+      OLD_VERSION: 'False'
+      PYTHONNOUSERSITE: '1'
+      VLMEVAL_USE_GEMMA4_MINIMAL_CONFIG: '1'
+      VLMEVAL_API_MINIMAL_IMPORT: '1'
+      VLMEVAL_VLM_MINIMAL_IMPORT: '1'
+      VLMEVAL_LAZY_INIT: '1'
+      GEMMA4_USE_VLLM: '1'
+models:
+  qwen35moe_35b:
+    display_name: Qwen3.5-35B-A3B
+    registry_name: Qwen3.5-35B-A3B-Replay
+    env_profile: qwen_replay_vlmeval
+    model_path: '{model_root}/Qwen3.5-35B-A3B'
+    runtime:
+      gpus_per_job: 2
+      infer_batch_size: 256
+      max_num_seqs: 256
+      tp_size: 2
+      max_model_len: 40960
+      estimated_dataset_cost: 1.0
+  gemma4_e4b:
+    display_name: Gemma4-E4B-it
+    registry_name: Gemma4-E4B-it-Replay
+    env_profile: gemma4_replay_vlmeval
+    model_path: '{model_root}/gemma-4-E4B-it'
+    runtime:
+      gpus_per_job: 1
+      infer_batch_size: 256
+      max_num_seqs: 256
+      tp_size: 1
+      max_model_len: 8192
+      estimated_dataset_cost: 1.2
+    task_env:
+      MODEL_PATH_GEMMA4_E4B: '{model_root}/gemma-4-E4B-it'
+      GEMMA4_MAX_NEW_TOKENS: '4096'
+      GEMMA4_ENABLE_THINKING: '0'
+      GEMMA4_VLLM_GPU_MEMORY_UTILIZATION: '0.9'
+      GEMMA4_SAMPLING_PRESET: greedy

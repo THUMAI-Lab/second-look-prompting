@@ -1,0 +1,14 @@
+# Python 3.12. torch comes from the PyTorch cu129 index and vLLM from its cu129 release wheel.
+torch==2.13.0+cu129
+torchvision==0.28.0+cu129
+vllm @ https://wheels.vllm.ai/db9527a46873454610df6dbedf79a36d6bf1a7f6/vllm-0.31.0%2Bcu129-cp38-abi3-manylinux_2_28_x86_64.whl
+transformers==5.17.0
+pandas==3.1.1
+numpy==2.3.5
+openai==3.46.0
+openpyxl==3.1.5
+xlsxwriter==3.3.1
+qwen-vl-utils==0.0.14
+triton==3.7.1
+PyYAML==6.0.3
+Pillow==12.3.0

@@ -1,0 +1,23 @@
+Second-Look Prompting
+Copyright 2026 Yicheng Zhang, Xun Zhang, Jingyuan Ma, Tianyu Yu, Yuan Yao
+
+This repository contains the code for "Replay Before You Reply: Second-Look
+Prompting for Unified Multimodal Encoding".
+
+It is derived from VLMEvalKit (https://github.com/open-compass/VLMEvalKit),
+copyright the VLMEvalKit authors and licensed under the Apache License,
+Version 2.0. The base is upstream commit
+00804217f868058f871f5ff252a7b9623c3475d9 (2026-03-05). LICENSE is the
+unmodified upstream license.
+
+Changes relative to that commit:
+- replay model wrappers (image-question repetition and its controls) for
+  Qwen2.5-VL, Qwen3.5/Qwen3.8, MiniCPM-V/o 4.5, Gemma-3 and Gemma-4,
+  with minimal per-family model registries (vlmeval/config_*_minimal.py);
+- a declarative matrix runner and result collector (scripts/run_benchmark.sh,
+  vlmeval/cli/);
+- attention-intervention and scratchpad probes (vlmeval/probes/);
+- latency measurement (scripts/latency_test.py, tools/);
+- the experiment configurations used in the paper (configs/paper/);
+- removal of model implementations, scripts and configurations that these
+  experiments do not use.

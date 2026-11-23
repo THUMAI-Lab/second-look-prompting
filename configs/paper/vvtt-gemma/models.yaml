@@ -1,0 +1,34 @@
+env_profiles:
+  venv017:
+    python: '{conda_root}/envs/vlmeval017/bin/python'
+    pythonpath:
+    - '{repo_root}'
+    base_env:
+      LMUData: '{lmu_data}'
+      HF_HUB_OFFLINE: '1'
+      TRANSFORMERS_OFFLINE: '1'
+      OMP_NUM_THREADS: '1'
+      FORCE_LOCAL: 'True'
+      OLD_VERSION: 'False'
+      PYTHONNOUSERSITE: '1'
+      VLMEVAL_API_MINIMAL_IMPORT: '1'
+      VLMEVAL_VLM_MINIMAL_IMPORT: '1'
+      VLMEVAL_LAZY_INIT: '1'
+      REPLAY_TEXT_FILLER_TYPE: dots
+models:
+  gemma3_12b:
+    display_name: Gemma3-12B-it
+    registry_name: Gemma3-12B-Replay
+    env_profile: venv017
+    model_path: '{model_root}/gemma-3-12b-it'
+    runtime:
+      gpus_per_job: 1
+      infer_batch_size: 128
+      max_num_seqs: 128
+      tp_size: 1
+      max_model_len: 32768
+      estimated_dataset_cost: 1.8
+    task_env:
+      MODEL_PATH_GEMMA3_12B: '{model_root}/gemma-3-12b-it'
+      GEMMA3_MAX_NEW_TOKENS: '4096'
+      VLMEVAL_USE_TEXT_FILLER_MINIMAL_CONFIG: '1'

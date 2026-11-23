@@ -1,0 +1,13 @@
+model,policy,mode,transform,dataset
+minicpmo45,default,text_image_text,baseline,DynaMath
+minicpmo45,default,text_image_text,baseline,MathVision
+minicpmo45,default,text_image_text,baseline,LogicVista
+minicpmo45,default,text_image_text,baseline,VisualPuzzles
+minicpmo45,default,text_image_text,baseline,MMMU_DEV_VAL_SINGLE_IMAGE
+minicpmo45,default,text_image_text,baseline,MathVista_MINI
+minicpmo45,default,text_image_text,baseline,WeMath
+minicpmo45,default,text_image_text,baseline,AI2D_TEST
+minicpmo45,default,text_image_text,baseline,OCRBench
+minicpmo45,default,text_image_text,baseline,SEEDBench2_Plus
+minicpmo45,default,text_image_text,baseline,MMBench_DEV_EN_V11
+minicpmo45,default,text_image_text,baseline,MMStar

@@ -1,0 +1,395 @@
+{
+  "repo_root": "@REPO@",
+  "name": "latency-lowres-node0",
+  "results_root": "@OUTPUT@",
+  "datasets": [
+    "MathVision",
+    "LogicVista",
+    "DynaMath",
+    "AI2D_TEST",
+    "OCRBench",
+    "MMBench_DEV_EN_V11"
+  ],
+  "replay_modes": [
+    "image_text",
+    "image_text_image_text"
+  ],
+  "cot_modes": [
+    "default"
+  ],
+  "sampling_fraction": 0.1,
+  "batch_size": 1,
+  "strict_timing": true,
+  "separate_warmup": true,
+  "ordered_allowlists": true,
+  "initial_image_transform": "v2_tokens_half",
+  "recipes": [
+    {
+      "name": "VT",
+      "replay_mode": "image_text",
+      "image_transform": "baseline"
+    },
+    {
+      "name": "SLP",
+      "replay_mode": "image_text_image_text",
+      "image_transform": "baseline"
+    },
+    {
+      "name": "SLP-half",
+      "replay_mode": "image_text_image_text",
+      "image_transform": "v2_tokens_half"
+    },
+    {
+      "name": "SLP-quarter",
+      "replay_mode": "image_text_image_text",
+      "image_transform": "v2_tokens_quarter"
+    }
+  ],
+  "parallel_models": true,
+  "models": [
+    {
+      "name": "node0-lane0",
+      "path": "@MODEL@",
+      "registry": "Qwen2VLChatReplay",
+      "framework": "qwen",
+      "gpu": "0,1",
+      "tp": 2,
+      "python": "@PYTHON@",
+      "overrides": {
+        "datasets": [
+          "MathVision",
+          "LogicVista",
+          "DynaMath",
+          "AI2D_TEST",
+          "OCRBench",
+          "MMBench_DEV_EN_V11"
+        ],
+        "dataset_index_allowlists": {
+          "MathVision": "{repo_root}/configs/paper/latency/allowlists/qwen25-lane0-MathVision.json",
+          "LogicVista": "{repo_root}/configs/paper/latency/allowlists/qwen25-lane0-LogicVista.json",
+          "DynaMath": "{repo_root}/configs/paper/latency/allowlists/qwen25-lane0-DynaMath.json",
+          "AI2D_TEST": "{repo_root}/configs/paper/latency/allowlists/qwen25-lane0-AI2D_TEST.json",
+          "OCRBench": "{repo_root}/configs/paper/latency/allowlists/qwen25-lane0-OCRBench.json",
+          "MMBench_DEV_EN_V11": "{repo_root}/configs/paper/latency/allowlists/qwen25-lane0-MMBench_DEV_EN_V11.json"
+        },
+        "environment": {
+          "VLMEVAL_LAZY_INIT": "1",
+          "VLMEVAL_VLM_MINIMAL_IMPORT": "1",
+          "VLMEVAL_API_MINIMAL_IMPORT": "1",
+          "VLMEVAL_USE_QWEN_MINIMAL_CONFIG": "1",
+          "HF_HUB_OFFLINE": "1",
+          "TRANSFORMERS_OFFLINE": "1",
+          "OMP_NUM_THREADS": "4",
+          "TOKENIZERS_PARALLELISM": "false",
+          "FORCE_LOCAL": "True",
+          "OLD_VERSION": "False",
+          "PYTHONNOUSERSITE": "1",
+          "LMUData": "@LMUDATA@",
+          "HF_HOME": "/path/to/temporary/scratch/prompt-replay/hf-cache",
+          "REPLAY_MODE": "image_text_image_text",
+          "REPLAY_PROMPT_TEMPLATE_NAME": "identity",
+          "REPLAY_IMAGE_TRANSFORM_TARGET_POSITION": "2",
+          "TORCHINDUCTOR_CACHE_DIR": "@CACHE@/lane0/torchinductor_cache_dir",
+          "TRITON_CACHE_DIR": "@CACHE@/lane0/triton_cache_dir",
+          "VLLM_CACHE_ROOT": "@CACHE@/lane0/vllm_cache_root"
+        },
+        "worker_id": "node0-lane0",
+        "max_new_tokens": 2048,
+        "vllm": {
+          "max_num_seqs": 16,
+          "max_model_len": 32768,
+          "gpu_memory_utilization": 0.9
+        },
+        "expected_sampling": {
+          "temperature": 0.0,
+          "repetition_penalty": 1.0,
+          "max_tokens": 2048,
+          "presence_penalty": 0.0
+        },
+        "reuse_dataset_runtime_policy": true,
+        "expected_sampling_by_dataset": {
+          "LogicVista": {
+            "temperature": 0.01,
+            "repetition_penalty": 1.05,
+            "max_tokens": 2048,
+            "presence_penalty": 0.0,
+            "stop_token_ids": [
+              151645,
+              151643
+            ]
+          }
+        },
+        "startup_barrier": {
+          "path": "@OUTPUT@/ready",
+          "participants": [
+            "node0-lane0",
+            "node0-lane1",
+            "node0-lane2",
+            "node0-lane3"
+          ],
+          "timeout_seconds": 1800
+        }
+      }
+    },
+    {
+      "name": "node0-lane1",
+      "path": "@MODEL@",
+      "registry": "Qwen2VLChatReplay",
+      "framework": "qwen",
+      "gpu": "2,3",
+      "tp": 2,
+      "python": "@PYTHON@",
+      "overrides": {
+        "datasets": [
+          "MathVision",
+          "LogicVista",
+          "DynaMath",
+          "AI2D_TEST",
+          "OCRBench",
+          "MMBench_DEV_EN_V11"
+        ],
+        "dataset_index_allowlists": {
+          "MathVision": "{repo_root}/configs/paper/latency/allowlists/qwen25-lane1-MathVision.json",
+          "LogicVista": "{repo_root}/configs/paper/latency/allowlists/qwen25-lane1-LogicVista.json",
+          "DynaMath": "{repo_root}/configs/paper/latency/allowlists/qwen25-lane1-DynaMath.json",
+          "AI2D_TEST": "{repo_root}/configs/paper/latency/allowlists/qwen25-lane1-AI2D_TEST.json",
+          "OCRBench": "{repo_root}/configs/paper/latency/allowlists/qwen25-lane1-OCRBench.json",
+          "MMBench_DEV_EN_V11": "{repo_root}/configs/paper/latency/allowlists/qwen25-lane1-MMBench_DEV_EN_V11.json"
+        },
+        "environment": {
+          "VLMEVAL_LAZY_INIT": "1",
+          "VLMEVAL_VLM_MINIMAL_IMPORT": "1",
+          "VLMEVAL_API_MINIMAL_IMPORT": "1",
+          "VLMEVAL_USE_QWEN_MINIMAL_CONFIG": "1",
+          "HF_HUB_OFFLINE": "1",
+          "TRANSFORMERS_OFFLINE": "1",
+          "OMP_NUM_THREADS": "4",
+          "TOKENIZERS_PARALLELISM": "false",
+          "FORCE_LOCAL": "True",
+          "OLD_VERSION": "False",
+          "PYTHONNOUSERSITE": "1",
+          "LMUData": "@LMUDATA@",
+          "HF_HOME": "/path/to/temporary/scratch/prompt-replay/hf-cache",
+          "REPLAY_MODE": "image_text_image_text",
+          "REPLAY_PROMPT_TEMPLATE_NAME": "identity",
+          "REPLAY_IMAGE_TRANSFORM_TARGET_POSITION": "2",
+          "TORCHINDUCTOR_CACHE_DIR": "@CACHE@/lane1/torchinductor_cache_dir",
+          "TRITON_CACHE_DIR": "@CACHE@/lane1/triton_cache_dir",
+          "VLLM_CACHE_ROOT": "@CACHE@/lane1/vllm_cache_root"
+        },
+        "worker_id": "node0-lane1",
+        "max_new_tokens": 2048,
+        "vllm": {
+          "max_num_seqs": 16,
+          "max_model_len": 32768,
+          "gpu_memory_utilization": 0.9
+        },
+        "expected_sampling": {
+          "temperature": 0.0,
+          "repetition_penalty": 1.0,
+          "max_tokens": 2048,
+          "presence_penalty": 0.0
+        },
+        "reuse_dataset_runtime_policy": true,
+        "expected_sampling_by_dataset": {
+          "LogicVista": {
+            "temperature": 0.01,
+            "repetition_penalty": 1.05,
+            "max_tokens": 2048,
+            "presence_penalty": 0.0,
+            "stop_token_ids": [
+              151645,
+              151643
+            ]
+          }
+        },
+        "startup_barrier": {
+          "path": "@OUTPUT@/ready",
+          "participants": [
+            "node0-lane0",
+            "node0-lane1",
+            "node0-lane2",
+            "node0-lane3"
+          ],
+          "timeout_seconds": 1800
+        }
+      }
+    },
+    {
+      "name": "node0-lane2",
+      "path": "@MODEL@",
+      "registry": "Qwen2VLChatReplay",
+      "framework": "qwen",
+      "gpu": "4,5",
+      "tp": 2,
+      "python": "@PYTHON@",
+      "overrides": {
+        "datasets": [
+          "MathVision",
+          "LogicVista",
+          "DynaMath",
+          "AI2D_TEST",
+          "OCRBench",
+          "MMBench_DEV_EN_V11"
+        ],
+        "dataset_index_allowlists": {
+          "MathVision": "{repo_root}/configs/paper/latency/allowlists/qwen25-lane2-MathVision.json",
+          "LogicVista": "{repo_root}/configs/paper/latency/allowlists/qwen25-lane2-LogicVista.json",
+          "DynaMath": "{repo_root}/configs/paper/latency/allowlists/qwen25-lane2-DynaMath.json",
+          "AI2D_TEST": "{repo_root}/configs/paper/latency/allowlists/qwen25-lane2-AI2D_TEST.json",
+          "OCRBench": "{repo_root}/configs/paper/latency/allowlists/qwen25-lane2-OCRBench.json",
+          "MMBench_DEV_EN_V11": "{repo_root}/configs/paper/latency/allowlists/qwen25-lane2-MMBench_DEV_EN_V11.json"
+        },
+        "environment": {
+          "VLMEVAL_LAZY_INIT": "1",
+          "VLMEVAL_VLM_MINIMAL_IMPORT": "1",
+          "VLMEVAL_API_MINIMAL_IMPORT": "1",
+          "VLMEVAL_USE_QWEN_MINIMAL_CONFIG": "1",
+          "HF_HUB_OFFLINE": "1",
+          "TRANSFORMERS_OFFLINE": "1",
+          "OMP_NUM_THREADS": "4",
+          "TOKENIZERS_PARALLELISM": "false",
+          "FORCE_LOCAL": "True",
+          "OLD_VERSION": "False",
+          "PYTHONNOUSERSITE": "1",
+          "LMUData": "@LMUDATA@",
+          "HF_HOME": "/path/to/temporary/scratch/prompt-replay/hf-cache",
+          "REPLAY_MODE": "image_text_image_text",
+          "REPLAY_PROMPT_TEMPLATE_NAME": "identity",
+          "REPLAY_IMAGE_TRANSFORM_TARGET_POSITION": "2",
+          "TORCHINDUCTOR_CACHE_DIR": "@CACHE@/lane2/torchinductor_cache_dir",
+          "TRITON_CACHE_DIR": "@CACHE@/lane2/triton_cache_dir",
+          "VLLM_CACHE_ROOT": "@CACHE@/lane2/vllm_cache_root"
+        },
+        "worker_id": "node0-lane2",
+        "max_new_tokens": 2048,
+        "vllm": {
+          "max_num_seqs": 16,
+          "max_model_len": 32768,
+          "gpu_memory_utilization": 0.9
+        },
+        "expected_sampling": {
+          "temperature": 0.0,
+          "repetition_penalty": 1.0,
+          "max_tokens": 2048,
+          "presence_penalty": 0.0
+        },
+        "reuse_dataset_runtime_policy": true,
+        "expected_sampling_by_dataset": {
+          "LogicVista": {
+            "temperature": 0.01,
+            "repetition_penalty": 1.05,
+            "max_tokens": 2048,
+            "presence_penalty": 0.0,
+            "stop_token_ids": [
+              151645,
+              151643
+            ]
+          }
+        },
+        "startup_barrier": {
+          "path": "@OUTPUT@/ready",
+          "participants": [
+            "node0-lane0",
+            "node0-lane1",
+            "node0-lane2",
+            "node0-lane3"
+          ],
+          "timeout_seconds": 1800
+        }
+      }
+    },
+    {
+      "name": "node0-lane3",
+      "path": "@MODEL@",
+      "registry": "Qwen2VLChatReplay",
+      "framework": "qwen",
+      "gpu": "6,7",
+      "tp": 2,
+      "python": "@PYTHON@",
+      "overrides": {
+        "datasets": [
+          "MathVision",
+          "LogicVista",
+          "DynaMath",
+          "AI2D_TEST",
+          "OCRBench",
+          "MMBench_DEV_EN_V11"
+        ],
+        "dataset_index_allowlists": {
+          "MathVision": "{repo_root}/configs/paper/latency/allowlists/qwen25-lane3-MathVision.json",
+          "LogicVista": "{repo_root}/configs/paper/latency/allowlists/qwen25-lane3-LogicVista.json",
+          "DynaMath": "{repo_root}/configs/paper/latency/allowlists/qwen25-lane3-DynaMath.json",
+          "AI2D_TEST": "{repo_root}/configs/paper/latency/allowlists/qwen25-lane3-AI2D_TEST.json",
+          "OCRBench": "{repo_root}/configs/paper/latency/allowlists/qwen25-lane3-OCRBench.json",
+          "MMBench_DEV_EN_V11": "{repo_root}/configs/paper/latency/allowlists/qwen25-lane3-MMBench_DEV_EN_V11.json"
+        },
+        "environment": {
+          "VLMEVAL_LAZY_INIT": "1",
+          "VLMEVAL_VLM_MINIMAL_IMPORT": "1",
+          "VLMEVAL_API_MINIMAL_IMPORT": "1",
+          "VLMEVAL_USE_QWEN_MINIMAL_CONFIG": "1",
+          "HF_HUB_OFFLINE": "1",
+          "TRANSFORMERS_OFFLINE": "1",
+          "OMP_NUM_THREADS": "4",
+          "TOKENIZERS_PARALLELISM": "false",
+          "FORCE_LOCAL": "True",
+          "OLD_VERSION": "False",
+          "PYTHONNOUSERSITE": "1",
+          "LMUData": "@LMUDATA@",
+          "HF_HOME": "/path/to/temporary/scratch/prompt-replay/hf-cache",
+          "REPLAY_MODE": "image_text_image_text",
+          "REPLAY_PROMPT_TEMPLATE_NAME": "identity",
+          "REPLAY_IMAGE_TRANSFORM_TARGET_POSITION": "2",
+          "TORCHINDUCTOR_CACHE_DIR": "@CACHE@/lane3/torchinductor_cache_dir",
+          "TRITON_CACHE_DIR": "@CACHE@/lane3/triton_cache_dir",
+          "VLLM_CACHE_ROOT": "@CACHE@/lane3/vllm_cache_root"
+        },
+        "worker_id": "node0-lane3",
+        "max_new_tokens": 2048,
+        "vllm": {
+          "max_num_seqs": 16,
+          "max_model_len": 32768,
+          "gpu_memory_utilization": 0.9
+        },
+        "expected_sampling": {
+          "temperature": 0.0,
+          "repetition_penalty": 1.0,
+          "max_tokens": 2048,
+          "presence_penalty": 0.0
+        },
+        "reuse_dataset_runtime_policy": true,
+        "expected_sampling_by_dataset": {
+          "LogicVista": {
+            "temperature": 0.01,
+            "repetition_penalty": 1.05,
+            "max_tokens": 2048,
+            "presence_penalty": 0.0,
+            "stop_token_ids": [
+              151645,
+              151643
+            ]
+          }
+        },
+        "startup_barrier": {
+          "path": "@OUTPUT@/ready",
+          "participants": [
+            "node0-lane0",
+            "node0-lane1",
+            "node0-lane2",
+            "node0-lane3"
+          ],
+          "timeout_seconds": 1800
+        }
+      }
+    }
+  ],
+  "replay": {
+    "replay_times": 1,
+    "template_on_last_replay_text": 1,
+    "image_copy_mode": "reuse_path",
+    "limit_mm_per_prompt": 2,
+    "safe_fallback": 0,
+    "safe_truncate_chars": 6000
+  }
+}

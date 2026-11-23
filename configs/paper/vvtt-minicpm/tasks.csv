@@ -1,0 +1,7 @@
+model,policy,mode,transform,dataset
+minicpmo45,default,image_image_text_text,baseline,MathVision
+minicpmo45,default,image_image_text_text,baseline,LogicVista
+minicpmo45,default,image_image_text_text,baseline,DynaMath
+minicpmo45,default,image_image_text_text,baseline,AI2D_TEST
+minicpmo45,default,image_image_text_text,baseline,OCRBench
+minicpmo45,default,image_image_text_text,baseline,MMBench_DEV_EN_V11

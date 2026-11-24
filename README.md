@@ -1,7 +1,7 @@
 # Second-Look Prompting
 
 [![Website](https://img.shields.io/badge/Website-second--look--vlm.com-2f62c8?logo=googlechrome&logoColor=white)](https://second-look-vlm.com)
-![arXiv](https://img.shields.io/badge/arXiv-coming%20soon-b31b1b?logo=arxiv&logoColor=white)
+[![arXiv](https://img.shields.io/badge/arXiv-2611.30909-b31b1b?logo=arxiv&logoColor=white)](https://arxiv.org/abs/2611.30909)
 [![Video](https://img.shields.io/badge/Video-explainer%20%281%3A59%29-e5484d)](https://second-look-vlm.com/assets/video/slp-explainer.mp4)
 
 Code for **Replay Before You Reply: Second-Look Prompting for Unified Multimodal Encoding**.
@@ -185,7 +185,8 @@ environment.
 @article{zhang2026replay,
   title   = {Replay Before You Reply: Second-Look Prompting for Unified Multimodal Encoding},
   author  = {Zhang, Yicheng and Zhang, Xun and Ma, Jingyuan and Yu, Tianyu and Yao, Yuan},
-  journal = {arXiv preprint},
+  journal = {arXiv preprint arXiv:2611.30909},
+  url     = {https://arxiv.org/abs/2611.30909},
   year    = {2026}
 }
 ```

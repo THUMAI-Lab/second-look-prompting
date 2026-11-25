@@ -6,8 +6,7 @@
 
 Code for **Replay Before You Reply: Second-Look Prompting for Unified Multimodal Encoding**.
 
-Yicheng Zhang\*, Xun Zhang\*, Jingyuan Ma\*, Tianyu Yu†, Yuan Yao† (Tsinghua University)
-\* Equal contribution. † Corresponding authors.
+[Yicheng Zhang\*](https://zycccishere.github.io/), Xun Zhang\*, Jingyuan Ma\*, Tianyu Yu†, Yuan Yao†
 
 ![Causal attention across input presentations](assets/slp_method.png)
 
